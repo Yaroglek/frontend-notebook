@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>input标签事件</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				var oForm = document.getElementsByTagName("form")[0];
+				var arrInput = document.getElementsByTagName("input");
+				oForm.onsubmit = function() {
+					console.log("submit");
+					return false; // 返回false时页面不刷新, 可以在控制台看见以上输出, 否则页面刷新看不到输出
+				};
+				arrInput[0].onfocus = function() {
+					console.log("onfocus"); // 获取焦点时输出内容
+				};
+				arrInput[0].onblur = function() {
+					console.log("onblur"); // 失去焦点时输出内容
+				};
+				arrInput[0].onchange = function() {
+					console.log("onchange"); // 内容改变, 失去焦点时输出内容, 在onblur()前触发
+				};
+				arrInput[0].oninput = function() {
+					console.log("oninput"); // 输入时输出内容, 每输入一个字符(包括退格)时输出一次内容
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<form>
+			<input type="text">
+			<input type="submit" value="SUBMIT">
+		</form>
+	</body>
+</html>

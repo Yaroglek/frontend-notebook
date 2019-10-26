@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>STOPWATCH</title>
+		<style type="text/css">
+			html, body {
+				height: 100%;
+				width: 100%;
+			}
+			body {
+				display: flex;
+				flex-direction: column;
+				margin: 0;
+			}
+			.div1, .div2 {
+				border-top: solid 5px;
+				border-bottom: none;
+				width: 100%;
+			}
+			span {
+				display: inline-block;
+				font-size: 64px;
+			}
+			#box {
+				text-align: center;
+				overflow: auto;
+				margin: auto;
+				width: 768px;
+				border: solid 5px;
+			}
+			.div1 {
+				border-top: none;
+				background-color: #FFFF00;
+				float: left;
+			}
+			.div1 span {
+				line-height: 200px;
+			}
+			.div2 span {
+				background-color: #FF00FF;
+				line-height: 80px;
+				width: 400px;
+				border: solid 5px;
+			}
+			.div2 {
+				background-color: #00FFFF;
+				float: left;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var oHours = document.getElementById("hours");
+				var oMinutes = document.getElementById("minutes");
+				var oSeconds = document.getElementById("seconds");
+				var oMilliSeconds = document.getElementById("milliSeconds");
+				var oStart = document.getElementById("start");
+				var oPause = document.getElementById("pause");
+				var oStop = document.getElementById("stop");
+				var isPause = true;
+				var stopwatch = null;
+				var milliSeconds = 0;
+				oStart.onclick = function() {
+					if (isPause) {
+						isPause = false;
+						stopwatch = setInterval(function() {
+							milliSeconds += 10;
+							oMilliSeconds.innerText = showNumber(milliSeconds % 1000 / 10);
+							oSeconds.innerText = showNumber(Math.floor(milliSeconds / 1000) % 60);
+							oMinutes.innerText = showNumber(Math.floor(milliSeconds / 60000) % 60);
+							oHours.innerText = showNumber(Math.floor(milliSeconds / 3600000));
+						}, 10);
+					}
+				}
+				oPause.onclick = function() {
+					clearInterval(stopwatch);
+					isPause = true;
+				}
+				oStop.onclick = function() {
+					clearInterval(stopwatch);
+					isPause = true;
+					milliSeconds = 0;
+					oMilliSeconds.innerHTML = "00";
+					oSeconds.innerHTML = "00";
+					oMinutes.innerHTML = "00";
+					oHours.innerHTML = "00";
+				}
+			};
+			
+			function showNumber(n) {
+				n %= 100;
+				return n < 10 ? "0" + n : n;
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<div class="div1">
+				<span id="hours">
+					00
+				</span>
+				<span>
+					&nbsp;:&nbsp;
+				</span>
+				<span id="minutes">
+					00
+				</span>
+				<span>
+					&nbsp;:&nbsp;
+				</span>
+				<span id="seconds">
+					00
+				</span>
+				<span>
+					&nbsp;.&nbsp;
+				</span>
+				<span id="milliSeconds">
+					00
+				</span>
+			</div>
+			<div class="div2">
+				<span id="start">
+					START
+				</span>
+			</div>
+			<div class="div2">
+				<span id="pause">
+					PAUSE
+				</span>
+			</div>
+			<div class="div2">
+				<span id="stop">
+					STOP
+				</span>
+			</div>
+		</div>
+	</body>
+</html>

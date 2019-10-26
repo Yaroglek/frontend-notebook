@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			/*
+				基本数据类型
+					number 100 3.14
+					string "hello world" 单双引号不敏感
+					boolean true false
+					null
+					undefined
+					NaN
+				声明变量 赋值操作初始化 可以不初始化 不初始化一般设置为null
+					var age = 24;
+				赋值
+					age = 20;
+				可以同时声明多个不同基本类型变量
+					var name = "senpai", a = 1, sex = false;
+				变量名由数字, 字母, 下划线_, 美元符号$组成, 不以数字开头, 大小写敏感
+				typeof 变量/常量
+					typeof age;
+					age的数据类型
+						var age = 24;
+						typeof age; // number
+				变量的数据类型随赋值类型改变
+				尽量不要改变变量的数据类型
+				强制数据类型转换
+					Boolean()
+						Boolean(1); // true
+						Boolean(0); // false
+						Boolean(-1); // true
+						Boolean(""); // false
+						Boolean("0"); // true
+						Boolean("null"); // false
+						Boolean("undefined"); // false
+						Boolean("NaN"); // false
+					Number()
+						Number(true); // 1
+						Number(false); // 0
+						Number("20"); // 20
+						Number("20a"); // NaN
+						Number(null); // 0
+						Number(undefined); // NaN
+					parseInt()
+						parseInt("20a"); // 20
+						parseInt(3.14); // 3
+					parseFloat()
+						parseFloat("3.14"); // 3.14
+				运算符
+					赋值运算符 =
+					算术运算符 + - * / %
+						任何数据类型与string进行+运算, 进行字符串拼接
+						任何数据类型与string进行其他运算, 将string转换成数字, 如果string是数字转换成数字, 否则转换成NaN, 再进行运算
+						任何数据类型与NaN运算, 结果为NaN
+						除string 任何数据类型与数字运算, 将其类型转换成数字再运算
+							1 + true; // 2
+							1 - false; // 1
+							1 + null; // 1
+							1 + undefined; // NaN
+						被除数为0时
+							1 / 0; // Infinity
+							-1 / 0; // -Infinity
+							0 / 0; // NaN
+					复合赋值运算符 += -+ *= /= %= 
+					关系运算符 > < >= <= == !=
+						string类型比较 逐位比较字符编码值 ASCII码
+						与number类型比较 将另一操作数转换成数字再比较
+						对于 == != === !==
+							boolean值转换成数字再比较
+							只有一个操作数是字符串, 字符串转换成数字再比较
+							操作数出现NaN, == 返回false, != 返回true
+								1 == true; // true
+								0 == false; // true
+								20 == "20"; // true
+								1 == NaN; // false
+								NaN == NaN; // false
+								null == undefind; // true
+							对于 === , 不同数据类型不经转换即比较, 数据类型不同则返回false
+								2 === "2"; // false
+								NaN === NaN; // false
+								null === undefind; // false
+							对于 !== , 不同数据类型不经转换即比较, 数据类型不同则返回true, 数据类型相同则与 != 结果相同
+								null !== undefind; // true
+					逻辑运算符 && || !
+						短路操作
+							5 > 3 && a; // ReferenceError: a is not defined
+							5 < 3 && a; // false
+							5 > 3 || a; // true
+					位运算符 & | ^ ~ << >> >>>
+					字符串运算符 +
+						上面写了
+					逗号运算符 ,
+					三目运算符 ?:
+					
+				运算符优先级
+					1. . [] ()
+					2. ++ -- ~ ! delete new typeof void
+					3. * / %
+					4. + - +(字符串连接符)
+					5. << >> >>>
+					6. == != === !==
+					7. &
+					8. ^
+					9. |
+					10. &&
+					11. ||
+					12. ?:
+					13. = += -= *= /= %=
+					14. ,
+				条件语句
+					if else条件语句
+						if(判断条件) {
+							执行语句;
+						}
+						else if(判断条件) {
+							执行语句;
+						}
+						else {
+							执行语句;
+						}
+					switch条件语句
+						switch(表达式) {
+							case 常量:
+								执行语句;
+								break;
+							default:
+								break;
+						}
+				循环语句
+					while循环语句
+					do while循环语句
+					for循环语句
+				break语句
+				continue语句
+				函数
+					函数声明
+						function 函数名(形式参数) {
+							函数体;
+						}
+					函数调用
+						函数名(实际参数);
+					例如
+						function add(num1, num2) {
+							return num1 + num2;
+						}
+						add(1, 2.2); // 3.2
+					例如
+						function sum() {
+							var sum = 0;
+							for (var i = 0; i < arguments.length; i++) {
+								sum += arguments[i];
+							}
+							return sum;
+						}
+						sum(3, 3.14, 7.28); // 13.42
+				数组
+					数组的声明
+						var arr1 = new Array(1, true, "hello");
+						arr1; // [1, true, "hello"]
+						
+						var arr2 = new Array(10);
+						arr2; // [empty × 10];
+						
+						var arr3 = Array(1, true, "hello");
+						arr3; // [1, true, "hello"]
+						
+						var arr4 = [1, true, "hello"];
+						arr4; // [1, true, "hello"]
+					访问元素
+						arr4[0]; // 1
+					数组长度
+						arr4.length; // 3
+					数组元素遍历
+						var arr5 = [];
+						for (var i = 0; i < 10; i++) {
+							arr5[i] = i * i;
+						}
+						arr5; // [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+						
+						for (var i in arr5) {
+							;
+						}
+					数组的方法
+						arr = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81];
+						var result1 = arr.push(100, 121, 144);
+						arr; // [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144]
+						result1; // 13
+						
+						var result2 = arr.pop();
+						arr; // [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
+						result2; // 144
+						
+						var result3 = arr.shift();
+						arr; // [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
+						result3; // 0
+						
+						var result4 = arr.unshift(4, 1, 0);
+						arr; // [4, 1, 0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
+						result4; // 14
+						
+						var result5 = arr.concat([144, 169]);
+						result5; // [4, 1, 0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169]
+						arr; // [4, 1, 0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
+						
+						var result6 = arr.slice(2, 5);
+						result6; // [0, 1, 4]
+						arr; // [4, 1, 0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
+						
+						var result7 = arr.splice(0, 2);
+						result7; // [4, 1]
+						arr; // [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
+						
+						var result8 = arr.splice(1, 0, "text", 2);
+						result8; // []
+						arr; // [0, "text", 2, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
+						
+						var result9 = arr.splice(1, 2, 3, "hello world");
+						result9; // ["text", 2]
+						arr; // [0, 3, "hello world", 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
+						
+						var result10 = arr.join("+");
+						result10; // "0+3+hello world+1+4+9+16+25+36+49+64+81+100+121"
+						arr; // [0, 3, "hello world", 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
+						
+						arr = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81];
+						arr.reverse();
+						arr; // [81, 64, 49, 36, 25, 16, 9, 4, 1, 0];
+						arr.sort();
+						arr; // [0, 1, 16, 25, 36, 4, 49, 64, 81, 9]; (字符串升序排序)
+						
+						arr.indexOf(25, 1); // 3 从1位置开始查找25第一次出现的位置
+						arr.indexOf(25); // 3 从0位置开始查找25第一次出现的位置
+						
+						// arr.forEach(function(item, index, array) {
+						// 	alert(item + ", " + index + ", " + array);
+						// }); // 逐次输出当前次遍历数组元素, 遍历位置, 原数组
+						// arr.forEach(alert); // 逐次输出当前次遍历数组元素
+						
+						arr.map(function(item, index, array) {
+							return item + 2;
+						}); // [2, 3, 18, 27, 38, 6, 51, 66, 83, 11]
+						arr; // [0, 1, 16, 25, 36, 4, 49, 64, 81, 9]
+						
+						arr.reduce(function(pre, next, index, array) {
+							return pre + next;
+						}); // 285
+						
+						arr.filter(function(item, index, array) {
+							return item > 30;
+						}); // [36, 49, 64, 81]
+						
+						arr.some(function(item, index, array) {
+							return item === 36;
+						}); // true 只要有一项匹配 则返回true
+						
+						arr.every(function(item, index, array) {
+							return item === 36;
+						}); // false 只要有一项不匹配 则返回false
+						
+				字符串
+					声明字符串
+						var str1 = new String("hello");
+						var str2 = String(true);
+						str2; // "true"
+						var str3 = "hello";
+					字符串的方法
+						var str = "hello";
+						
+						str.length; // 5
+						
+						str.charAt(1); // "e"
+						
+						str[1]; // "e"
+						
+						str.charCodeAt(1); // 101 字符e的ASCII码值
+						
+						String.fromCharCode(97, 98, 99); // "abc" 参数对应ASCII码组成的字符串
+						
+						str.concat("world"); // "helloworld"
+						str; // "hello"
+						
+						str.indexOf("ll", 1); // 2 从1位置开始查找子串"ll"第一次出现的位置
+						str.indexOf("eo"); // -1 从0位置开始查找子串"eo"第一次出现的位置, 未找到, 返回值为-1
+						
+						str.lastIndexOf("ll") // 2 查找子串"ll"最后一次出现的位置
+						
+						str.search(/ll/) // 2 参数支持正则表达式
+						
+						str.replace("ll", "x"); // "hexo" 参数1支持正则表达式
+						str; // "hello"
+						
+						str.substring(1, 2); // "e"
+						str; // "hello"
+						
+						var str2 = "This is a box"
+						str2.split(" "); // ["This", "is", "a", "box"]
+						str2.split(" ", 2); // ["This", "is"]
+						str2.split("is"); // ["Th", " ", " a box"]
+						str2; // "This is a box"
+						
+						var str3 = "How  are  you";
+						str3.split(" "); // ["How", "", "are", "", "you"]
+						str3.split(""); // ["H", "o", "w", " ", " ", "a", "r", "e", " ", " ", "y", "o", "u"]
+						str3.split("").join("="); // "H=o=w= = =a=r=e= = =y=o=u"
+						
+						str3.toLowerCase(); // "how  are  you"
+						str3.toUpperCase(); // "HOW  ARE  YOU"
+						str3; // "How  are  you"
+					字符串不可改变
+						str[1] = "x";
+						str; // "hello"
+						
+						str = "hxllo";
+						str; // "hxllo"
+					在浏览器页面中显示字符串
+						big() 大号字体
+						blink() 闪动
+						bold() 加粗
+						fixed() 打字机文本
+						strike() 删除线
+						fontcolor() 字体颜色
+						fontsize() 字号
+						link() 链接
+						sub() 下标
+						sup() 上标
+						例如
+							document.write("e" + "πi".sup() + "&nbsp;+&nbsp;1&nbsp;=&nbsp;0"); // 显示为欧拉恒等式
+				严格模式
+					function m1() {
+						max = 10;
+					}
+					m1();
+					max; // 10
+					
+					function m2() {
+						"use strict"; // 其作用于遵从严格模式 不要轻易在全局范围使用"use strict"
+						min = 10;
+					}
+					m2();
+					min; // ReferenceError: assignment to undeclared variable min
+				Math对象
+					常用方法
+						Math.random(); // 0 ~ 1之间的随机数
+						
+						Math.max(10, 20, 30); // 30
+						Math.min(10, 20, 30); // 10
+						
+						Math.abs(-10); // 10
+						
+						Math.round(3.5); // 4 四舍五入
+						Math.ceil(3.5); // 4 向上取整
+						Math.floor(3.5); // 3 向下取整
+						
+						Math.pow(2, 3); // 8 指数函数
+						
+						Math.sqrt(4); // 2 算术平方根
+						
+						Math.sin(Math.PI / 2); // 1 正弦函数
+						Math.cos(Math.PI); // -1 余弦函数
+						Math.tan(0); // 0 正切函数
+				对象
+					// 创建对象
+						var o1 = new Object();
+						var o2 = Object();
+						var person = {};
+					// 添加属性
+						person.name = "yjsnpi";
+						person["age"] = 24;
+					// 添加方法
+						person["show"] = function() {
+							alert(person["name"] + ", " + person.age);
+						}
+						person.show(); // 显示为yjsnpi, 24
+					// 删除属性
+						delete person.name;
+				日期对象
+					// 声明对象
+						var d1 = new Date();
+						d1; // 当前系统时间
+						var d2 = new Date("2000-01-01");
+						var d3 = new Date("2000/01/01");
+						var d4 = new Date(2000, 0, 1, 00, 00);
+						d4; // Sat Jan 01 2000 00:00:00 GMT+0800 (中国标准时间) 参数1年份基础上加上参数2个月份
+						var d5 = new Date(1000);
+						d5; // Thu Jan 01 1970 08:00:01 GMT+0800 (中国标准时间) 参数单位毫秒
+					// 日期的方法
+						var d = new Date("2000-01-01");
+						d.toDateString(); // "Sat Jan 01 2000"
+						d.toTimeString(); // "08:00:00 GMT+0800 (中国标准时间)"
+						d.toLocaleDateString(); // "2000/1/1"
+						d.toLocaleTimeString(); // "上午8:00:00"
+						d.toUTCString(); // "Sat, 01 Jan 2000 00:00:00 GMT"
+					// get方法
+						d.getDate(); // 1 日期
+						d.getDay(); // 6 星期
+						d.getMonth(); // 0 月份 - 1
+						d.getFullYear(); // 2000
+						d.getHours(); // 8 时
+						d.getMinutes(); // 0 分
+						d.getSeconds(); // 0 秒
+						d.getMilliseconds(); // 0 毫秒
+						d.getTime(); // 946684800000 距1970年1月1日的毫秒数
+						d.getTimezoneOffset(); // -480 本地时间与GMT的分钟差
+						d.getUTCDate();
+						d.getUTCDay();
+						d.getUTCMonth();
+						d.getUTCFullYear();
+						d.getUTCHours();
+						d.getUTCMinutes();
+						d.getUTCSeconds();
+						d.getUTCMilliseconds();
+					// set方法
+						d.setDate(2);
+						d.setMonth(1);
+						d.setFullYear(2001);
+						d.setHours(1);
+						d.setMinutes(1);
+						d.setSeconds(1);
+						d.setMilliseconds(1);
+						d; // Fri Feb 02 2001 01:01:01 GMT+0800 (中国标准时间)
+						d.setTime(1145141919810);
+						d; // Sun Apr 16 2006 06:58:39 GMT+0800 (中国标准时间)
+					// parse方法
+						Date.parse("1919-08-10"); // -1590364800000 参数时间距1970年1月1日的毫秒数
+				定时器
+					// setInterval()方法
+						setInterval(func, num); // 每隔num毫秒调用一次函数func, setInterval()返回该定时器的id
+						var timer = setInterval(function() {
+							;
+							if () {
+								clearInterval(timer); // 停用该定时器
+							}
+						}, num); // 使用匿名函数
+			*/
+		   document.write("e" + "πi".sup() + "&nbsp;+&nbsp;1&nbsp;=&nbsp;0"); // 显示为欧拉恒等式
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

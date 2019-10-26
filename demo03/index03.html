@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件驱动函数</title>
+		<script type="text/javascript">
+			/*
+				window.onload
+					写在其中的代码 在页面加载完成以后执行
+					因为页面是自上而下加载的 body内容还并未加载出来
+						window.onload = function() {
+							var oTxt1 = document.getElementById("txt1")
+							var oBtn1 = document.getElementById("btn1");
+							// 单击按钮, 清空文本框
+							oBtn1.onclick = function() {
+								oTxt1.value = "";
+							}
+						}
+				innerHTML属性
+					获取标签间的所有内容
+						window.onload = function() {
+							var oTxt1 = document.getElementById("txt1");
+							var oBtn1 = document.getElementById("btn1");
+							var oDiv1 = document.getElementById("div1");
+							// 单击按钮, 文本框内容变成标签中的代码原文, 这里为避免标签结束写成转义符了, 即&lt;em&gt;斜体&lt;/em&gt;, 但是转义符不会转义
+							oBtn1.onclick = function() {
+								oTxt1.value = oDiv1.innerHTML;
+							};
+						}
+					另一个示例
+						window.onload = function() {
+							var oTxt1 = document.getElementById("txt1");
+							var oBtn1 = document.getElementById("btn1");
+							var oDiv1 = document.getElementById("div1");
+							// 单击按钮, 文本框内容变成标签中的代码原文, 这里为避免标签结束写成转义符了, 即&lt;em&gt;斜体&lt;/em&gt;, 但是转义符不会转义
+							oBtn1.onclick = function() {
+								oDiv1.value = "&lt;h1&gt;一级标题&lt;/h1&gt;";
+							};
+						}
+			*/
+			window.onload = function() {
+				var oTxt1 = document.getElementById("txt1");
+				var oBtn1 = document.getElementById("btn1");
+				var oDiv1 = document.getElementById("div1");
+				// 单击按钮, 文本框内容变成标签中的代码原文, 这里为避免标签结束写成转义符了, 即&lt;em&gt;斜体&lt;/em&gt;, 但是转义符不会转义
+				oBtn1.onclick = function() {
+					oDiv1.innerHTML = "<h1>一级标题</h1>";
+				};
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" value="text" id="txt1">
+		<br>
+		<input type="button" value="button" id="btn1">
+		<br>
+		<div id="div1"><em>斜体</em></div>
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>提交表单</title>
+	</head>
+	<body>
+		<!--
+			form标签必须有action属性 表单提交地址
+				method属性值为get或post
+				区分get和post
+		!-->
+		<form action="https://www.baidu.com" method="get">
+			<table border="1px" cellspacing="0">
+				<colgroup span="1" width="200px"></colgroup>
+				<colgroup span="1" width="200px"></colgroup>
+				<colgroup span="1" width="400px"></colgroup>
+				<tbody>
+					<!--
+						快速创建4行3列表格的代码块
+						tr*4>td*3 Tab键
+					!-->
+					<tr height="40px">
+						<td rowspan="4" align="center" style="color:red;">总体信息</td>
+						<td colspan="2"></td>
+					</tr>
+					<tr height="40px">
+						<td align="right">用户名:&nbsp;</td>
+						<td>
+							<input type="text" name="id">
+						</td>
+					</tr>
+					<tr height="40px">
+						<td align="right">密码:&nbsp;</td>
+						<td>
+							<input type="password" name="pwd">
+						</td>
+					</tr>
+					<tr height="40px">
+						<td colspan="2" align="center">
+							<input type="submit" value="提交" style="width:80px;height:30px;background-color:darkseagreen;">
+							<input type="reset" value="重置" style="width:80px;height:30px;background-color:darkseagreen;">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</body>
+</html>

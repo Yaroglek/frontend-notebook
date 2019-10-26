@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>键盘事件</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				var oDiv1 = document.getElementById("div1");
+				var oInput1 = document.getElementById("input1");
+				var oInput2 = document.getElementById("input2");
+				
+				function submit() {
+					oDiv1.innerText += oInput1.value;
+				}
+				// onkeypress 按下字符键
+				// onkeydown 按下任意键
+				oInput1.onkeydown = function(e) {
+					var evt = e || window.event;
+					// Ctrl + Enter提交, 必须先按住Ctrl
+					if (evt.ctrlKey && evt.keyCode == 13) {
+						submit();
+					}
+				}
+				// 点击按钮提交
+				oInput2.onclick = submit;
+			};
+		</script>
+		<style type="text/css">
+			body {
+				display: flex;
+				flex-direction: column;
+			}
+			#div1 {
+				width: 640px;
+				height: 480px;
+				margin: auto;
+				border: solid 1px;
+			}
+			#div2 {
+				width: 640px;
+				margin: auto;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="div1"></div>
+		<div id="div2"><input type="text" id="input1"><input type="button" id="input2" value="SUBMIT"></div>
+	</body>
+</html>

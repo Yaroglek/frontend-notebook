@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>BOM</title>
+		<script type="text/javascript">
+			/*
+				// alert
+					alert("提示框");
+				// confirm
+					confirm("带有确定和取消按钮的提示框"); // 点击确定或取消后确定返回值, 确定时为true, 取消时为false
+				// prompt
+					prompt("带输入框的带有确定和取消按钮的提示框", "输入框的默认值"); // 点击确定返回输入的内容, 点击取消返回null
+				// open
+					open("url"); // 在新窗口打开url指向的页面
+					open("url", "新窗口的名字"); // 在新窗口打开url指向的页面, 之后调用open时再遇到参数2, 就在其指定的这个窗口重复加载
+					open("url","新窗口的名字", "width=400,height=400,top=200,left=200"); // 在参数3指定位置大小的新窗口打开指定参数2名字的url指向的页面
+				// opener 是一个window对象, 指向当前子窗口的父窗口, IE不支持该对象
+				// location
+					location.hash // 锚点部分
+					location.host // 主机名:端口号
+					location.hostname // 主机名
+					location.href // URL
+					location.pathname // 路径名
+					location.port // 端口号
+					location.protocol // 协议部分
+					location.search // 查询字符串
+					
+					location.assign("url"); // 跳转至指定url
+					location.reload(); // 重新加载当前页面
+					location.reload(true); // 强制重新加载, 忽略缓存
+					location.replace("url"); // 替换至指定url, 不可返回, 避免产生当前页面跳转前的历史记录
+				// history
+					history.length // 返回当前页面的历史记录的条数
+					
+					history.back(); // 返回上一条历史记录, 类似于后退
+					history.forward(); // 前进到下一条历史记录, 类似于前进
+					history.go(0); // 重新加载当前页面
+					history.go(num); // 前进或后退num数量的记录, 正数为前进, 负数为后退, 超出可跳转页面数量时不跳转
+				// location.search的一种按key解析的方法
+					function getValueFromKey(key) {
+						if (key[0] === "?") {
+							return;
+						}
+						var start = location.search.indexOf(key);
+						if (start === -1) {
+							return;
+						}
+						else {
+							var end = location.search.indexOf("&", start);
+							if (end === -1) {
+								end = location.search.length;
+							}
+							return location.search.substring(start, end).split("=")[1];
+						}
+					}
+			*/
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

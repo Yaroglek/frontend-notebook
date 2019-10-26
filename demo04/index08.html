@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>DOM 2级 事件处理</title>
+		<style type="text/css">
+			#outer {
+				width: 640px;
+				height: 480px;
+				background-color: rgb(255, 0, 0);
+			}
+			#inner {
+				width: 320px;
+				height: 240px;
+				background-color: rgb(0, 0, 255);
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var oOuter = document.getElementById("outer");
+				var oInner = document.getElementById("inner");
+				function outerClick() {
+					console.log("outerclick");
+					oOuter.getElementsByTagName("span")[0].innerText = parseInt(oOuter.getElementsByTagName("span")[0].innerText) + 1;
+				}
+				function innerClick() {
+					console.log("innerclick");
+					oInner.getElementsByTagName("span")[0].innerText = parseInt(oInner.getElementsByTagName("span")[0].innerText) + 1;
+				}
+				// 添加监听器
+				// 参数1 监听事件类型, 注意不是"onclick"
+				// 参数2 监听函数
+				// 参数3 true, 捕获; false, 冒泡
+				// 可以为同一事件添加多个监听器
+				// 相比onclick等方法, 同一事件的多个监听器不会被覆盖掉
+				oOuter.addEventListener("click", outerClick, true); // true, 如点击#inner, 则先判定点击#outer; false, 如点击#inner, 则先判定点击#inner
+				oInner.addEventListener("click", innerClick, false);
+				// 移除监听器
+				oOuter.removeEventListener("click", outerClick, false); // 3个参数必须与添加监听器的参数一致, 才可移除监听, 参数3默认值是false, 根据情况可以省略
+				
+				// oOuter.attachEvent("onclick", outerClick); // IE的监听方法, 注意参数1是"onclick", 相比addEventListener方法, 没有参数3
+				// oOuter.detachEvent("onclick", outerClick); // IE的移除监听方法
+			};
+			
+			// 封装兼容函数
+			function addEvent(obj, type, fun, bool) {
+				if (obj.addEventListener) {
+					obj.addEventListener(type, fun, bool);
+				}
+				else if (obj.attachEvent) {
+					obj.attachEvent("on" + type, fun);
+				}
+			}
+			
+			function removeEvent(obj, type, fun, bool) {
+				if (obj.removeEventListener) {
+					obj.removeEventListener(type, fun);
+				}
+				else if (obj.detachEvent) {
+					obj.detachEvent("on" + type, fun);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="outer"><span>0</span><div id="inner"><span>0</span></div></div>
+	</body>
+</html>

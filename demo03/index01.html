@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>JavaScript基本语法</title>
+		<!--
+			一般地script标签写在head标签中
+			可以引入多个script标签
+			自上而下运行
+			设置src属性引入外部js文件
+			引入文件的script标签中的代码不执行
+			html代码对诸如< >这些标记符号敏感
+			使用转义字符&lt; &gt;分别代替<和>
+		!-->
+		<script type="text/javascript">
+			// 行注释
+			/*
+				段落注释
+			*/
+			alert("Hello World!");
+			document.write("&lt;/script&gt;");
+		</script>
+		<script type="text/javascript">
+			alert("goodbye");
+		</script>
+		<script type="text/javascript" src="js/js01.js">
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

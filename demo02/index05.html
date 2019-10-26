@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>布局与选择器</title>
+		<!--
+			内部样式表
+		!-->
+		<style>
+			/*
+				网页背景颜色
+			*/
+			html {
+				background-color: #ddd;
+			}
+			/*
+				网页边框
+			*/
+			body {
+				margin: 0;
+			}
+			#banner img {
+				width: 100%
+			}
+			/*
+				line-height 文本高度
+			*/
+			#navigation {
+				height: 80px;
+				line-height: 80px;
+				text-align: center;
+				background-color: white;
+			}
+			/*
+				text-decoration 文本格式 none就删除了超链接的下划线
+				margin 边距 上下为0 左右为15px
+			*/
+			#navigation a {
+				text-decoration: none;
+				color: black;
+				margin: 0 15px;
+			}
+			#bottom {
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				font-size: 14px;
+				color: gray;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="banner">
+			<img src="img/01.png">
+		</div>
+		<div id="navigation">
+			<a href="#">首页</a>
+			<a href="#">关于王力</a>
+			<a href="#">产品世界</a>
+			<a href="#">新闻中心</a>
+			<a href="#">网络事件</a>
+			<a href="#">联系我们</a>
+			<a href="#">关于我们</a>
+			<a href="#">网络新闻</a>
+		</div>
+		<div id="bottom">
+			版权所有:&nbsp;浙江王力门业有限公司 技术支持派桑网络
+		</div>
+	</body>
+</html>

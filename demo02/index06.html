@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>CSS层叠</title>
+		<style>
+			#navigation {
+				text-align: center;
+			}
+			/*
+				border-right 右边框
+					solid 实线
+					1px 粗细
+					#808080 颜色
+					第一个参数可以是 比如dashed 虚线
+			*/
+			.item {
+				text-decoration: none;
+				color: black;
+				border-right: solid 1px #808080;
+				padding: 0 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="navigation">
+			<a href="#" class="item">首页</a>
+			<a href="#" class="item">办公家居</a>
+			<a href="#" class="item">数码科技</a>
+			<a href="#" class="item">母婴</a>
+			<a href="#" class="item">团购</a>
+			<!--
+				行内样式表的优先级大于内部样式表
+				相对于内部样式表的显示右边框设计 行内样式表通过不使用边框使这个超链接不显示右边框
+				优先级顺序
+				1. 行内样式 权重1000
+				2. id选择器 权重100
+				3. 类选择器 权重10
+				4. 标签选择器 权重1
+				5. 通用选择器 权重0
+			!-->
+			<a href="#" class="item" style="border: none;">秒杀活动</a>
+		</div>
+	</body>
+</html>

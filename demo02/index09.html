@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>元素浮动</title>
+		<style type="text/css">
+			/*
+				浮动元素在排列时只需参考前一个元素
+			*/
+			.green {
+				width: 100px;
+				height: 100px;
+				background-color: green;
+				float: left;
+			}
+			.red {
+				width: 200px;
+				height: 150px;
+				background-color: red;
+			}
+			.a {
+				width: 20%;
+				background-color: green;
+			}
+			.b {
+				width: 60%;
+				background-color: red;
+			}
+			.c {
+				width: 20%;
+				background-color: blue;
+			}
+			
+			.a, .b, .c {
+				float: left;
+				height: 200px;
+			}
+			.d {
+				height: 360px;
+				background-color: #222222;
+			}
+			/*
+				overflow: auto; 自动调整边界使子元素不溢出
+				或者
+				clear: left 元素不受左浮动影响
+					right 不受右浮动影响
+					both 不受左浮动和右浮动影响
+				或者手动设置高度height与子元素匹配
+			*/
+			.outer {
+				overflow: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<p>文字环绕效果</p>
+		<div class="green"></div>
+		<!--
+			浮动元素不会覆盖图片 文本 表单等
+		!-->
+		<div class="red">文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文文字</div>
+		<p>排版布局</p>
+		<div class="outer">
+			<div class="a"></div>
+			<div class="b"></div>
+			<div class="c"></div>
+		</div>
+		<div class="d"></div>
+	</body>
+</html>

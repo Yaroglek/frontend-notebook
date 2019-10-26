@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>阻止默认行为</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				var oA1 = document.getElementById("a1");
+				var oForm1 = document.getElementById("form1");
+				var oInput1 = document.getElementById("input1");
+				var oInput2 = document.getElementById("input2");
+				oA1.onclick = function(e) {
+					var _event = e || window.event;
+					return false; // 阻止默认行为, 阻止点击超链接跳转页面
+					// _event.preventDefault(); // 效果同上句
+					// _event.returnValue = false; // 效果同上句
+				};
+				oForm1.onsubmit = function(e) {
+					var _event = e || window.event;
+					_event.preventDefault(); // 阻止点击按钮提交
+				};
+				oInput1.onkeydown = function(e) {
+					var _event = e || window.event;
+					_event.returnValue = false; // 阻止文本框输入内容
+				};
+				document.oncontextmenu = function() {
+					return false; // 阻止页面右键弹出菜单
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<form id="form1">
+			<input type="text" id="input1">
+			<input type="button" id="input2" value="SUBMIT">
+		</form>
+		<a href="#" id="a1">超链接</a>
+	</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>JS动画 匀速运动 碰撞检测</title>
+		<!--
+		元素在页面内匀速运动
+		碰撞页面边缘时, 沿碰撞方向的速度分量方向反转
+		碰撞其他元素时, 两元素速度交换
+		-->
+		<style type="text/css">
+			body {
+				margin: 0;
+			}
+			div {
+				width: 50px;
+				height: 50px;
+				position: absolute;
+			}
+			#div1 {
+				background-color: red;
+				left: 100px;
+				top: 100px;
+			}
+			#div2 {
+				background-color: green;
+				left: 300px;
+				top: 300px;
+			}
+			#div3 {
+				background-color: blue;
+				left: 200px;
+				top: 200px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var oDiv1 = document.querySelector("#div1");
+				var oDiv2 = document.querySelector("#div2");
+				var oDiv3 = document.querySelector("#div3");
+				setSpeed(oDiv1, 3, 4);
+				setSpeed(oDiv2, -2, 3);
+				setSpeed(oDiv3, -3, 1);
+				window.setInterval(function() {
+					move(oDiv1);
+					move(oDiv2);
+					move(oDiv3);
+					checkBorderCollision(oDiv1);
+					checkBorderCollision(oDiv2);
+					checkBorderCollision(oDiv3);
+					checkBlockCollision(oDiv1, oDiv2, oDiv3);
+					updateCoordinate(oDiv1);
+					updateCoordinate(oDiv2);
+					updateCoordinate(oDiv3);
+				}, 10);
+			};
+			
+			function setSpeed(ele, speedX, speedY) {
+				ele.speedX = speedX;
+				ele.speedY = speedY;
+			}
+			
+			function move(ele) {
+				var currentStyle = window.getComputedStyle(ele);
+				var currentLeft = parseInt(currentStyle.left);
+				var currentTop = parseInt(currentStyle.top);
+				var currentWidth = parseInt(currentStyle.width);
+				var currentHeight = parseInt(currentStyle.height);
+				ele.left = currentLeft + ele.speedX;
+				ele.top = currentTop + ele.speedY;
+			}
+			/*
+			页面边缘碰撞 碰撞方向上速度方向反向
+			*/
+			function checkBorderCollision(ele) {
+				var currentStyle = window.getComputedStyle(ele);
+				var currentLeft = parseInt(currentStyle.left);
+				var currentTop = parseInt(currentStyle.top);
+				var currentWidth = parseInt(currentStyle.width);
+				var currentHeight = parseInt(currentStyle.height);
+				if (ele.left < 0) {
+					ele.left = -ele.left;
+					ele.speedX = -ele.speedX;
+				}
+				else if (ele.left > window.innerWidth - currentWidth - 1) {
+					ele.left = 2 * (window.innerWidth - currentWidth - 1) - ele.left;
+					ele.speedX = -ele.speedX;
+				}
+				if (ele.top < 0) {
+					ele.top = -ele.top;
+					ele.speedY = -ele.speedY;
+				}
+				else if (ele.top > window.innerHeight - currentHeight - 1) {
+					ele.top = 2 * (window.innerHeight - currentHeight - 1) - ele.top;
+					ele.speedY = -ele.speedY;
+				}
+			}
+			/*
+			元素碰撞 类似于力学原理 设定它们为同质量质点的弹性碰撞 速度交换
+			*/
+			function checkBlockCollision() {
+				var eles = arguments;
+				for (var i = 0; i < eles.length; i++) {
+					for (var j = i + 1; j < eles.length; j++) {
+						var width1 = parseInt(window.getComputedStyle(eles[i]).width);
+						var height1 = parseInt(window.getComputedStyle(eles[i]).height);
+						var width2 = parseInt(window.getComputedStyle(eles[j]).width);
+						var height2 = parseInt(window.getComputedStyle(eles[j]).height);
+						var centerLeft1 = eles[i].left + width1 / 2;
+						var centerTop1 = eles[i].top + height1 / 2;
+						var centerLeft2 = eles[j].left + width2 / 2;
+						var centerTop2 = eles[j].top + height2 / 2;
+						var diffLeft = Math.abs(centerLeft2 - centerLeft1);
+						var diffTop = Math.abs(centerTop2 - centerTop1);
+						var speedX = eles[j].speedX - eles[i].speedX;
+						var speedY = eles[j].speedY - eles[i].speedY;
+						if (isCovered(eles[i], eles[j])) {
+							var backTimeX = ((width1 + width2) / 2 - diffLeft) / Math.abs(speedX);
+							var backTimeY = ((height1 + height2) / 2 - diffTop) / Math.abs(speedY);
+							if (backTimeX <= backTimeY) {
+								// console.log("x = " + backTimeX);
+								eles[i].left = eles[i].left + backTimeX * speedX;
+								eles[i].top = eles[i].top + backTimeX * speedY;
+								eles[j].left = eles[j].left - backTimeX * speedX;
+								eles[j].top = eles[j].top - backTimeX * speedY;
+							}
+							else if (backTimeX > backTimeY) {
+								// console.log("y = " + backTimeY);
+								eles[i].left = eles[i].left + backTimeY * speedX;
+								eles[i].top = eles[i].top + backTimeY * speedY;
+								eles[j].left = eles[j].left - backTimeY * speedX;
+								eles[j].top = eles[j].top - backTimeY * speedY;
+							}
+							[eles[i].speedX, eles[j].speedX] = [eles[j].speedX, eles[i].speedX];
+							[eles[i].speedY, eles[j].speedY] = [eles[j].speedY, eles[i].speedY];
+						}
+					}
+				}
+			}
+			function isCovered(ele1, ele2) {
+				var style1 = window.getComputedStyle(ele1);
+				var width1 = parseInt(style1.width);
+				var height1 = parseInt(style1.height);
+				var style2 = window.getComputedStyle(ele2);
+				var width2 = parseInt(style2.width);
+				var height2 = parseInt(style2.height);
+				var centerLeft1 = ele1.left + width1 / 2;
+				var centerTop1 = ele1.top + height1 / 2;
+				var centerLeft2 = ele2.left + width2 / 2;
+				var centerTop2 = ele2.top + height2 / 2;
+				var diffLeft = Math.abs(centerLeft1 - centerLeft2);
+				var diffTop = Math.abs(centerTop1 - centerTop2);
+				return diffLeft < (width1 + width2) / 2 && diffTop < (height1 + height2) / 2;
+			}
+			function updateCoordinate(ele) {
+				ele.style.left = ele.left + "px";
+				ele.style.top = ele.top + "px";
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div1"></div>
+		<div id="div2"></div>
+		<div id="div3"></div>
+	</body>
+</html>

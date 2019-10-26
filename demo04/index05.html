@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>冒泡</title>
+		<style type="text/css">
+			#outer {
+				height: 640px;
+				width: 480px;
+				background-color: red;
+			}
+			#inner {
+				height: 320px;
+				width: 240px;
+				background-color: blue;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var oOuter = document.getElementById("outer");
+				var oInner = document.getElementById("inner");
+				oOuter.onclick = function(e) {
+					oOuter.firstChild.nodeValue = parseInt(oOuter.firstChild.nodeValue) + 1;
+				};
+				oInner.onclick = function(e) {
+					var evt = e || window.event;
+					oInner.firstChild.nodeValue = parseInt(oInner.firstChild.nodeValue) + 1;
+					evt.cancelBubble = true; // true 阻止冒泡, #outer的点击事件不被执行, 效果是点击#inner不使#outer文本数字增加
+					// evt.stopPropagation(); // 也可以用stopPropagation方法, 效果与上句相同
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<div id="outer">0<br><div id="inner">0<br></div></div>
+	</body>
+</html>

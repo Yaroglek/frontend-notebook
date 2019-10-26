@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件对象 client, page, offset</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				var oDiv1 = document.getElementById("div1");
+				var oSpan1 = document.getElementById("span1");
+				var oSpan1DefauleInnerHTML = oSpan1.innerHTML;
+				oDiv1.onmousemove = function(e) {
+					var evt = e || window.event; // 参数e与window.event是同一对象, IE只适用window.event, 设置兼容
+					var client = String("client = (" + evt.clientX + ", " + evt.clientY + ")"); // 相对浏览器的页面部分左上角的距离
+					var page = String("page = (" + evt.pageX + ", " + evt.pageY + ")"); // 相对当前页面左上角的距离, 页面视图处于页面最左上方时, 结果与client坐标一样
+					var offset = String("offset = (" + evt.offsetX + ", " + evt.offsetY + ")"); // 相对于事件源左上角的距离
+					oSpan1.innerHTML = client + ", " + page + ", " + offset;
+				}
+				// onmouseleave, onmouseenter, 不含子元素的区域
+				// onmouseout, onmouseover, 含子元素的区域
+				oDiv1.onmouseout = function(e) {
+					span1.innerHTML = oSpan1DefauleInnerHTML;
+				}
+			};
+		</script>
+		<style type="text/css">
+			body {
+				display: flex;
+				flex-direction: column;
+			}
+			#div1 {
+				margin: auto;
+				width: 640px;
+				height: 480px;
+				border: solid 1px;
+			}
+			#span1 {
+				margin: auto;
+				width: 640px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1"></div>
+		<span id="span1">client = (0, 0), page = (0, 0), offset = (0, 0)</span>
+	</body>
+</html>

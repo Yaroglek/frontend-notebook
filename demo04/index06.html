@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件委托</title>
+		<style>
+			li {
+				background-color: red;
+				margin: 20px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var oUl = document.getElementsByTagName("ul")[0];
+				// var aLi = document.getElementsByTagName("li");
+				oUl.onclick = function(e) {
+					var _event = e || window.event;
+					var _target = _event.target || _event.srcElement; // 获取目标对象, 如点击到子节点li上, 则获取li, 因为兼容问题, 写法与_event相似
+					// 如果获取节点的父节点是oUl, 即点击在了一级子节点上
+					if (_target.parentNode == this) {
+						_target.innerText = parseInt(_target.innerText) + 1;
+					}
+				};
+				// 这里新添加了3个一级子节点, 对于上述父节点点击事件, 仍然可以触发
+				for (var i = 4; i < 7; i++) {
+					var oLi = document.createElement("li");
+					oLi.innerText = i;
+					oUl.appendChild(oLi);
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>cookie</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				// 首次访问页面cookie为空, 所以下句没有输出
+				console.log(document.cookie);
+				
+				// 首次访问页面后再刷新, 上句被输出, 因为下句添加了cookie
+				// 重复键名会覆盖
+				// 默认有效期为浏览器运行时, 浏览器关闭cookie被销毁
+				// 可以通过设置expires属性, 手动设置cookie有效期, 设置为当前时间之前可以销毁cookie
+				var oDate = new Date();
+				oDate.setDate(oDate.getDate() + 3);
+				document.cookie = "username=pudge";
+				document.cookie = "username=troll;expires=" + oDate;
+			};
+			
+			// 封装cookie方法
+			// 键值对, 过期天数
+			function setCookie(name, value, day) {
+				var oDate = new Date();
+				oDate.setDate(oDate.getDate() + day);
+				document.cookie = name + "=" + value + ";expires=" + oDate;
+			}
+			
+			function getCookie(name) {
+				var str = document.cookie;
+				var arr = str.split("; ");
+				for (var i = 0; i < arr.length; i++) {
+					var keyAndValue = arr[i].split("=");
+					if (keyAndValue[0] == name) {
+						return keyAndValue[1];
+					}
+				}
+				return null;
+			}
+			
+			function removeCookie(name) {
+				setCookie(name, 0, -1);
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
