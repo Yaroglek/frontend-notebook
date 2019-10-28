@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery 自定义jQuery插件</title>
+		<style type="text/css">
+			div {
+				width: 160px;
+				height: 120px;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+		<script type="text/javascript">
+			/*
+			自定义jQuery方法需要注意
+			1 定义在jQuery.fn上, jQuery.fn即jQuery.prototype 使用jQuery.fn.extend方法添加方法
+			2 解决命名冲突(使用立即执行函数)
+			3 循环jQuery对象中的每个元素 因为jQuery对象的方法作用在所有获取到的元素上 使用jQuery.each方法
+			4 函数返回this, 这个this是获取到的jQuery对象 因为jQuery方法可以链式调用
+			*/
+			(function($) {
+				$.fn.extend({
+					randomBackgroundColor: function() {
+						function getRandomRGB() {
+							var r = Math.floor(Math.random() * 256);
+							var g = Math.floor(Math.random() * 256);
+							var b = Math.floor(Math.random() * 256);
+							return `rgb(${r}, ${g}, ${b})`;
+						}
+						this.each(function (index) {
+							$(this).css({"background-color": getRandomRGB()});
+							return this;
+						});
+				   }
+			   });
+		   })(jQuery);
+		   $("div").randomBackgroundColor(); // 随机设置div背景颜色
+		</script>
+	</body>
+</html>

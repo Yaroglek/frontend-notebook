@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>jQuery 动画</title>
+        <style type="text/css">
+            button {
+                margin: 16px;
+            }
+            #div0 div {
+                float: left;
+                width: 160px;
+                height: 120px;
+                background-color: aqua;
+                margin: 16px;
+                font-size: 64px;
+                text-align: center;
+                line-height: 120px;
+            }
+            #div0 {
+                width: 384px;
+                overflow: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="button1">show</button>
+        <button id="button2">hide</button>
+        <button id="button3">stop</button>
+        <br>
+        <div id="div0">
+            <div id="div1">1</div><div id="div2">2</div>
+            <div id="div3">3</div><div id="div4">4</div>
+            <div id="div5">5</div><div id="div6">6</div>
+            <div id="div7">7</div><div id="div8">8</div>
+        </div>
+        <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+        <script type="text/javascript">
+            $("#button1").click(function() {
+                $("#div1").show(1000);
+                $("#div3").fadeIn(1000);
+                $("#div5").slideDown(1000);
+                $("#div7").animate({
+                    "width": "160px",
+                    "height": "120px",
+                    "font-size": "64px",
+                    "line-height": "120px",
+                    "opacity": "1",
+                }, 1000);
+            });
+            $("#button2").click(function() {
+                $("#div1").hide(1000);
+                $("#div3").fadeOut(1000);
+                $("#div5").slideUp(1000);
+                // animate方法创建一个队列, 顺序执行动画以做到阻塞, 这里是直接调用返回值的方法, 省去了写$("#div7")
+                $("#div7").animate({
+                    "width": "80px",
+                    "font-size": "32px",
+                    "line-height": "60px"
+                }, 2000).animate({
+                    "height": "60px"
+                }, 2000).animate({
+                    "opacity": "0.5"
+                }, 2000);
+            });
+            $("#button3").click(function() {
+                $("#div1, #div3, #div5").stop(); // 无参数, 停止队列头的动画
+                $("#div7").stop(true); // 停止队列中所有的动画
+            })
+        </script>
+    </body>
+</html>

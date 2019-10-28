@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf8">
+        <title>jQuery Ajax</title>
+    </head>
+    <body>
+		<span></span>
+        <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+        <script type="text/javascript">
+            // 连续调用done方法避免回调地狱
+			$.ajax({
+                type: "get",
+                url: "./json/json01.json",
+            }).done(function(response) {
+				$("span").html($("span").html() + response.name + "<br>");
+				return $.ajax({
+					type: "get",
+					url: "./json/json01.json",
+				});
+			}).done(function(response) {
+				$("span").html($("span").html() + response.age + "<br>");
+				return $.ajax({
+					type: "get",
+					url: "./json/json01.json",
+				}); 
+			}).done(function(response) {
+				$("span").html($("span").html() + response.hobby + "<br>");
+			})
+			
+        </script>
+    </body>
+</html>

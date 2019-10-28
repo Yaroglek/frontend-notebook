@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery 事件</title>
+		<style type="text/css">
+			body {
+				background-color: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li>0</li>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+		<script type="text/javascript">
+			function func1() {
+				$(this).css({"background-color": "green"});
+			}
+			
+			// 事件绑定
+			$("li").on("mouseover", function() {
+				$(this).css({"background-color": "red"});
+			}).on("mouseout", func1); // 支持链式调用
+			
+			// 事件解绑
+			$("li:eq(3)").off("mouseout", func1); // 参数2若为空, 则停用所有指定的函数对应的该类监听器
+			
+			// 事件代理 与事件绑定一样都是on方法
+			$("ul").on("mouseover", "li:odd", function() {
+				$(this).css({"color": "white"}); // 注意这里的this指向$(参数2)
+			}).on("mouseout", "li:odd", function() {
+				$(this).css({"color": "black"});
+			});
+			
+			$("<li>5</li>").appendTo("ul"); // 新添加的子节点同样适用上述29行事件代理的监听器, 但不适用22行的监听器
+		</script>
+	</body>
+</html>

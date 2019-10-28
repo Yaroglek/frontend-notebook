@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>jQuery 节点遍历</title>
+    </head>
+    <body>
+        <div id="div1">
+            <ul id="ul1">
+                <li id="li1">
+                    <p>1</p>
+                </li>
+                <li id="li2">
+                    <p>2</p>
+                </li>
+                <li id="li3">
+                    <p>3</p>
+                </li>
+                <li id="li4">
+                    <p>4</p>
+                </li>
+                <li id="li5">
+                    <p>5</p>
+                </li>
+                <li id="li6">
+                    <p>6</p>
+                </li>
+                <li id="li7">
+                    <p>7</p>
+                </li>
+                <li id="li8">
+                    <p>8</p>
+                </li>
+                <li id="li9">
+                    <p>9</p>
+                </li>
+            </ul>
+        </div>
+        <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+        <script type="text/javascript">
+            // 只寻找元素节点
+            $("#li1").children().css({"text-align": "center"}); // #li1 p内容居中
+            $("#li2").parent().css({"font-size": "32px"}); // #ul1 字体大小32px
+            $("#li3").parents("#div1").css({"width": "320px"}); // #div1 宽度320px, parents方法参数为选择器, 默认不写参数返回所有祖先节点组成的jQuery对象
+            $("#ul1").find("#li4").css({"background-color": "aqua"}); // #li4 背景颜色aqua, find方法按照参数寻找对象的某个子节点
+            $("#li6").prev().css({"color": "#884422"}); // #li5 文本颜色#884422
+            $("#li6").next().css({"height": "64px"}); // #li7 高度64px
+            $("#li8").siblings().css({"font-weight": "bold"}); // 除#li8以外, #ul1 li 文本加粗, 也就是说siblings方法返回的兄弟节点不包括自身
+			
+			// 添加新节点 append方法 appendTo方法
+			$("body").append($("<h1><a href=\"#\">一级标题<\a></h1>")); // 在body内部的最后添加节点
+			$("<li id=\"li10\"><p>10</p></li>").appendTo("#ul1"); // 在#ul1内部最后添加节点
+			// prepend方法 prependTo方法
+			$("body").prepend($("<h2>二级标题</h2>")); // 在body内部最前添加节点
+			$("<li id=\"li0\"><p>0</p></li>").prependTo("#ul1"); // 在#ul1内部最前添加节点
+			
+			// after方法
+			$("#li3 p").after("<a href=\"#\">#3</a>"); // 在#li3 p后添加节点, 注意参数是字符串格式, 不是jQuery对象
+			// insertAfter方法
+			$("<a href=\"#\">#4</a>").insertAfter("#li4 p"); // 在#li4 p后添加节点
+			
+			$("#div1").append($("<button id=\"button1\">remove</button>")); // 注意这个button是在h1之前的, 因为h1在body内部最后, 也就是这个script标签之下
+			// 删除节点 remove方法
+			$("#button1").on("click", function() {
+				$("body h1").remove(); // 点击#button1删除h1
+			})
+			
+			$("#div1").append($("<button id=\"button2\">empty</button>"));
+			// 清空节点内容
+			$("#button2").on("click", function() {
+				$("#li4").empty(); // 点击#button2清空#li4, 也就是innerHTML被清空, 子节点都被删除了
+			})
+        </script>
+    </body>
+</html>
