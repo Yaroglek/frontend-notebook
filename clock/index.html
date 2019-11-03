@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CLOCK</title>
+        <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                display: flex;
+                align-items: center;
+            }
+            #div1 {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                width: 640px;
+                height: 640px;
+                margin: -320px 0 0 -320px;
+                border: solid 5px black;
+                border-radius: 50%;
+            }
+            #center {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                width: 32px;
+                height: 32px;
+                background-color: black;
+                margin: -16px 0 0 -16px;
+                border-radius: 50%;
+            }
+            #div1 .lattice {
+                position: absolute;
+                left: 50%;
+                width: 8px;
+                height: 24px;
+                background-color: black;
+                margin: 0 0 0 -4px;
+                transform-origin: center 320px;
+                transform: rotate(90deg);
+            }
+            #div1 .long {
+                height: 48px;
+            }
+            #div1 .needle {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                background-color: black;
+                transform-origin: center 100%;
+                transform: rotate(90deg);
+            }
+            #div1 #hour {
+                width: 16px;
+                height: 240px;
+                margin: -240px 0 0 -8px;
+            }
+            #div1 #minute {
+                width: 12px;
+                height: 260px;
+                margin: -260px 0 0 -6px;
+            }
+            #div1 #second {
+                width: 8px;
+                height: 280px;
+                margin: -280px 0 0 -4px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="div1">
+            <div class="needle" id="hour"></div>
+            <div class="needle" id="minute"></div>
+            <div class="needle" id="second"></div>
+            <div id="center"></div>
+            
+        </div>
+        <script type="text/javascript">
+            let oClock = document.querySelector("#div1");
+            for (let i = 0; i < 60; i++) {
+                let oLattice = document.createElement("div");
+                oLattice.className = "lattice";
+                oLattice.style.transform = `rotate(${i * 6}deg)`;
+                if (i % 5  === 0) {
+                    oLattice.className = "lattice long";
+                }
+                oClock.appendChild(oLattice);
+            }
+            let oHour = document.querySelector("#hour");
+            let oMinute = document.querySelector("#minute");
+            let oSecond = document.querySelector("#second");
+            let run = function() {
+                let date = new Date();
+                let hour = date.getHours();
+                let minute = date.getMinutes();
+                let second = date.getSeconds();
+                let millisecond = date.getMilliseconds();
+                oSecond.style.transform = `rotate(${millisecond * 6 / 1000 + second * 6}deg)`;
+                oMinute.style.transform = `rotate(${(millisecond * 6 / 1000 + second * 6) / 60 + minute * 6}deg)`;
+                oHour.style.transform = `rotate(${((millisecond * 6 / 1000 + second * 6) / 60 + minute * 6) / 12 + hour * 30}deg)`;
+            }
+            setInterval(run, 10);
+        </script>
+    </body>
+</html>

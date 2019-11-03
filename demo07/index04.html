@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta charset="utf8">
-        <title>jQuery Ajax</title>
+        <title>jQuery AJAX</title>
     </head>
     <body>
 		<span></span>
         <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
         <script type="text/javascript">
-            // 连续调用done方法避免回调地狱
+            // 连续异步请求 调用done方法避免回调地狱
 			$.ajax({
                 type: "get",
                 url: "./json/json01.json",
