@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="utf-8">
+		<title>文本跑马灯</title>
+		<script type="text/javascript" src="lib/vue.js"></script>
+	</head>
+	<body>
+		<div id="div1">
+			<button v-on:click="start">开始</button>
+			<button v-on:click="stop">停止</button>
+			<br>
+			<span v-text="message"></span>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el: "#div1",
+				data: {
+					message: "肏你妈，三天之内杀了你，看着没小逼崽子，你妈了个臭逼，肏你妈的，把你骨灰都给你扬喽。",
+					intervalId: null
+				},
+				methods: {
+					start() {
+						if (this.intervalId === null) {
+							this.intervalId = setInterval(() => {
+								this.message = this.message.substring(1) + this.message[0];
+							}, 100);
+						}
+					},
+					stop() {
+						clearInterval(this.intervalId);
+						this.intervalId = null;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

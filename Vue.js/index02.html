@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>简陋的四则运算计算器</title>
+		<script type="text/javascript" src="lib/vue.js"></script>
+		<style>
+			#div1 input {
+				width: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<input type="text" v-model="left">
+			<select v-model="operator">
+				<option value="add">+</option>
+				<option value="subtract">-</option>
+				<option value="multiply">*</option>
+				<option value="divide">/</option>
+			</select>
+			<input type="text" v-model="right">
+			<button v-on:click="calculate">=</button>
+			<span v-text="result"></span>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el: "#div1",
+				data: {
+					left: "",
+					operator: "add",
+					right: "",
+					result: ""
+				},
+				methods: {
+					calculate: function() {
+						switch(this.operator) {
+							case "add":
+								this.result = parseFloat(this.left) + parseFloat(this.right);
+								break;
+							case "subtract":
+								this.result = parseFloat(this.left) - parseFloat(this.right);
+								break;
+							case "multiply":
+								this.result = parseFloat(this.left) * parseFloat(this.right);
+								break;
+							case "divide":
+								this.result = parseFloat(this.left) / parseFloat(this.right);
+								break;
+							default:
+								break;
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
