@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用数据库的品牌案例</title>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <script type="text/javascript" src="lib/vue.js"></script>
+    <script type="text/javascript" src="lib/vue-resource.js"></script>
+</head>
+<body>
+<div id="div1">
+    <div class="card">
+        <div class="card-header bg-primary">
+            <h3 class="card-title text-light">
+                添加品牌
+            </h3>
+        </div>
+        <div class="card-body form-inline">
+            <input type="text" class="form-control" placeholder="名字" v-model="name" v-on:keyup.enter="add">
+            <input type="button" class="btn btn-primary" value="添加" v-on:click="add">
+        </div>
+    </div>
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Ctime</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in list" v-bind:key="item.id">
+            <td v-text="item.id"></td>
+            <td v-text="item.name"></td>
+            <td v-text="item.ctime"></td>
+            <td><a href="#" v-on:click.prevent="del(item.id)" v-text="&quot;删除&quot;"></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    // 以下请求的url都以Vue.http.option.root为根目录
+    Vue.http.options.root = "http://www.liulongbin.top:3005";
+    let vm = new Vue({
+        el: "#div1",
+        data: {
+            list: [],
+            name: ""
+        },
+        methods: {
+            add: function() {
+                this.$http.post("api/addproduct", {name: this.name}, { emulateJSON: true}).then(response => {
+                    if (response.body.status === 0) {
+                        this.getList();
+                        this.name = "";
+                    }
+                    else {
+                        alert("请求出错");
+                    }
+                })
+            },
+            del: function(id) {
+                this.$http.get("api/delproduct/" + id).then(response => {
+                    if (response.body.status === 0) {
+                        this.getList();
+                    }
+                    else {
+                        alert("请求出错");
+                    }
+                })
+            },
+            getList: function() {
+                this.$http.get("api/getprodlist").then(response => {
+                    if (response.body.status === 0) {
+                        this.list = response.body.message;
+                    }
+                    else {
+                        alert("请求出错");
+                    }
+                })
+            }
+        },
+        created: function() {
+            this.getList();
+        }
+    })
+</script>
+</body>
+</html>

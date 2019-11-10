@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>半场动画</title>
+    <script type="text/javascript" src="lib/vue.js"></script>
+    <style type="text/css">
+        #ball {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: aqua;
+            margin: 8px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    <button v-on:click="buttonClick">开始</button>
+    <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:after-enter="afterEnter">
+        <div id="ball" v-show="flag"></div>
+    </transition>
+</div>
+<script type="text/javascript">
+    let vm = new Vue({
+        el: "#div1",
+        data: {
+           flag: false
+        },
+        methods: {
+            buttonClick() {
+                this.flag = true
+            },
+            beforeEnter(el) {
+                console.log("beforeEnter");
+                el.style.transform = "translate(0, 0)"
+            },
+            enter(el, done) {
+                console.log("enter");
+                el.offsetWidth;
+                el.style.transform = "translate(320px, 240px)"
+                el.style.transition = "all 1s linear"
+                done();
+            },
+            afterEnter(el) {
+                console.log("afterEnter");
+                this.flag = false;
+            }
+        }
+    })
+</script>
+</body>
+</html>
